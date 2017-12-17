@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBackSolid"
+    tools:context="com.example.android.scorekeeperhsalike.MainActivity">
+
+    <RelativeLayout
+        android:id="@+id/main_root"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/imgtop"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/img_top"
+            android:scaleType="fitCenter"
+            android:src="@drawable/bg_topgradient" />
+
+        <LinearLayout
+            android:id="@+id/main"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:clipChildren="false"
+            android:clipToPadding="false">
+
+            <LinearLayout
+                android:id="@+id/top"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/intro"
+                    style="@style/Theme.Text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Dummy!"
+                    android:textAlignment="center"
+                    android:textSize="28sp"
+                    android:layout_marginBottom="-10dp"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/columns"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="4"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:id="@+id/p1atck"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical">
+
+                    <ImageButton
+                        android:id="@+id/p1btn"
+                        style="@style/Theme.Text"
+                        android:layout_width="96dp"
+                        android:layout_height="96dp"
+                        android:layout_gravity="center"
+                        android:background="@drawable/btn_round"
+                        android:foreground="@drawable/btn_ripple"
+                        android:onClick="attackp1"
+                        android:scaleType="fitXY" />
+
+                    <TextView
+                        android:id="@+id/p1txt"
+                        style="@style/Theme.Text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:text="Attack!"
+                        android:textAlignment="center"
+                        android:textSize="30sp"
+                        android:visibility="invisible" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/p1column"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:clipChildren="false"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/p1name"
+                        style="@style/Theme.Text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Player 1"
+                        android:textAlignment="center"
+                        android:textSize="44sp" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:id="@+id/p1img"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:layout_margin="24dp"
+                            android:adjustViewBounds="true"
+                            android:background="@drawable/bg_p1border"
+                            android:scaleType="fitCenter" />
+
+                        <ImageView
+                            android:id="@+id/p1dmg"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:adjustViewBounds="true"
+                            android:scaleType="fitCenter"
+                            android:visibility="gone" />
+
+                        <TextView
+                            android:id="@+id/p1dmgTxt"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignBottom="@+id/p1dmg"
+                            android:layout_centerHorizontal="true"
+                            android:text="TextView"
+                            android:textAlignment="center"
+                            android:textColor="@android:color/holo_red_dark"
+                            android:textSize="36sp"
+                            android:visibility="gone" />
+                    </RelativeLayout>
+
+                    <TextView
+                        android:id="@+id/p1hp"
+                        style="@style/Theme.Text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="069"
+                        android:textAlignment="center"
+                        android:textSize="80sp"
+                        android:layout_marginTop="-24dp"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/p2column"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:clipChildren="false"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/p2name"
+                        style="@style/Theme.Text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Player 2"
+                        android:textAlignment="center"
+                        android:textSize="44sp" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:id="@+id/p2img"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:layout_margin="24dp"
+                            android:adjustViewBounds="true"
+                            android:background="@drawable/bg_p2border"
+                            android:scaleType="fitCenter" />
+
+                        <ImageView
+                            android:id="@+id/p2dmg"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:adjustViewBounds="true"
+                            android:scaleType="fitCenter"
+                            android:visibility="gone" />
+
+                        <TextView
+                            android:id="@+id/p2dmgTxt"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignBottom="@+id/p2dmg"
+                            android:layout_centerHorizontal="true"
+                            android:text="TextView"
+                            android:textAlignment="center"
+                            android:textColor="@android:color/holo_red_dark"
+                            android:textSize="36dp"
+                            android:visibility="gone"/>
+
+                    </RelativeLayout>
+
+                    <TextView
+                        android:id="@+id/p2hp"
+                        style="@style/Theme.Text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="0"
+                        android:textAlignment="center"
+                        android:textSize="80sp"
+                        android:layout_marginTop="-24dp"/>
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/p2atck"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical">
+
+                    <Button
+                        android:id="@+id/p2btn"
+                        style="@style/Theme.Text"
+                        android:layout_width="96dp"
+                        android:layout_height="96dp"
+                        android:layout_gravity="center"
+                        android:background="@drawable/btn_round"
+                        android:foreground="@drawable/btn_ripple"
+                        android:onClick="attackp2" />
+
+                    <TextView
+                        android:id="@+id/p2txt"
+                        style="@style/Theme.Text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:text="Attack!"
+                        android:textAlignment="center"
+                        android:textSize="30sp"
+                        android:visibility="invisible" />
+                </LinearLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/resetOverlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clickable="true"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <com.github.mmin18.widget.RealtimeBlurView
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            app:realtimeBlurRadius="8dp"
+            app:realtimeOverlayColor="#003F51B5" />
+
+        <RelativeLayout
+            android:id="@+id/resetContainer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:background="@drawable/bg_overlaygradient">
+
+
+            <TextView
+                android:id="@+id/resetTxt"
+                style="@style/Theme.Text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginBottom="8dp"
+                android:layout_marginLeft="32dp"
+                android:layout_marginRight="32dp"
+                android:layout_marginTop="20dp"
+                android:gravity="center_horizontal"
+                android:text="Player X has lost. \n Want to reset?"
+                android:textSize="24sp" />
+
+            <Button
+                android:id="@+id/resetBtn"
+                style="@style/Theme.Text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/resetTxt"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="20dp"
+                android:onClick="resetGame"
+                android:text="Yes!"
+                android:textSize="24sp" />
+
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+
+</RelativeLayout>
