@@ -65,7 +65,7 @@
                     android:gravity="center_vertical"
                     android:orientation="vertical">
 
-                    <ImageButton
+                    <Button
                         android:id="@+id/p1btn"
                         style="@style/Theme.Text"
                         android:layout_width="96dp"
@@ -236,7 +236,8 @@
                         android:layout_gravity="center"
                         android:background="@drawable/btn_round"
                         android:foreground="@drawable/btn_ripple"
-                        android:onClick="attackp2" />
+                        android:onClick="attackp2"
+                        android:scaleType="fitXY" />
 
                     <TextView
                         android:id="@+id/p2txt"
