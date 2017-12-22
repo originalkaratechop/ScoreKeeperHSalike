@@ -54,70 +54,73 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        //3 strings to get rid off action bar + buttons + fullscreen
-        setContentView(R.layout.activity_main);
-        displayp1hp(p1health);
-        displayp2hp(p2health);
+        if(savedInstanceState ==null) {
+            Log.i("ss", "onCreate: ms " + timer);
+            requestWindowFeature(Window.FEATURE_NO_TITLE);
+            getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                    WindowManager.LayoutParams.FLAG_FULLSCREEN);
+            //3 strings to get rid off action bar + buttons + fullscreen
+            setContentView(R.layout.activity_main);
+            displayp1hp(p1health);
+            displayp2hp(p2health);
 
-        p1btn = (Button) findViewById(R.id.p1btn);
-        p2btn = (Button) findViewById(R.id.p2btn);
-        p1txt = (TextView) findViewById(R.id.p1txt);
-        p2txt = (TextView) findViewById(R.id.p2txt);
-        resettxt = (TextView) findViewById(R.id.resetTxt);
-        intro = (TextView) findViewById(R.id.intro);
-        resetLO = (RelativeLayout) findViewById(R.id.resetOverlay);
+            p1btn = (Button) findViewById(R.id.p1btn);
+            p2btn = (Button) findViewById(R.id.p2btn);
+            p1txt = (TextView) findViewById(R.id.p1txt);
+            p2txt = (TextView) findViewById(R.id.p2txt);
+            resettxt = (TextView) findViewById(R.id.resetTxt);
+            intro = (TextView) findViewById(R.id.intro);
+            resetLO = (RelativeLayout) findViewById(R.id.resetOverlay);
 
-        int startRand = new Random().nextInt(2) + 1;
+            int startRand = new Random().nextInt(2) + 1;
 
-        if (startRand == 1) {
-            p1btn.setEnabled(true);
-            p2btn.setEnabled(false);
-            p1txt.setVisibility(View.VISIBLE);
-            p2txt.setVisibility(View.INVISIBLE);
-        }
-        if (startRand == 2) {
-            p1btn.setEnabled(false);
-            p2btn.setEnabled(true);
-            p1txt.setVisibility(View.INVISIBLE);
-            p2txt.setVisibility(View.VISIBLE);
-        }
+            if (startRand == 1) {
+                p1btn.setEnabled(true);
+                p2btn.setEnabled(false);
+                p1txt.setVisibility(View.VISIBLE);
+                p2txt.setVisibility(View.INVISIBLE);
+            }
+            if (startRand == 2) {
+                p1btn.setEnabled(false);
+                p2btn.setEnabled(true);
+                p1txt.setVisibility(View.INVISIBLE);
+                p2txt.setVisibility(View.VISIBLE);
+            }
 
-        intro.setText("Let the battle begin! \n Player " + startRand + " starts this round!");
+            intro.setText("Let the battle begin! \n Player " + startRand + " starts this round!");
 
-        delayTop = new CountDownTimer(timer, 10) {
-            @Override
-            public void onTick(long ms) {
-                timer = ms;
+            delayTop = new CountDownTimer(timer, 100) {
+                @Override
+                public void onTick(long ms) {
+                    timer = ms;
 //                Log.i("ss","onTick: ms " + timer);
-            }
+                }
 
-            @Override
-            public void onFinish() {
-                intro.setText("\n");
-                timer = 0;
-                cancel();
-            }
-        };
+                @Override
+                public void onFinish() {
+                    intro.setText("\n");
+                    timer = 0;
+                    cancel();
+                }
+            };
 
-        delayTop.start();
+            delayTop.start();
 
-        ImageView imgP1 = (ImageView) findViewById(R.id.p1img);
-        Bitmap src1 = BitmapFactory.decodeResource(getResources(), R.drawable.img_p1port);
-        RoundedBitmapDrawable dr1 = RoundedBitmapDrawableFactory.create(getResources(), src1);
-        dr1.setCornerRadius(Math.max(src1.getWidth(), src1.getHeight()) / 10f);
-        imgP1.setImageDrawable(dr1);
+            ImageView imgP1 = (ImageView) findViewById(R.id.p1img);
+            Bitmap src1 = BitmapFactory.decodeResource(getResources(), R.drawable.img_p1port);
+            RoundedBitmapDrawable dr1 = RoundedBitmapDrawableFactory.create(getResources(), src1);
+            dr1.setCornerRadius(Math.max(src1.getWidth(), src1.getHeight()) / 10f);
+            imgP1.setImageDrawable(dr1);
 //        imgP1.setClipToOutline(true); //simple stuff for future
 
-        ImageView imgP2 = (ImageView) findViewById(R.id.p2img);
-        Bitmap src2 = BitmapFactory.decodeResource(getResources(), R.drawable.img_p2port);
-        RoundedBitmapDrawable dr2 = RoundedBitmapDrawableFactory.create(getResources(), src2);
-        dr2.setCornerRadius(Math.max(src2.getWidth(), src2.getHeight()) / 10f);
-        imgP2.setImageDrawable(dr2);
+            ImageView imgP2 = (ImageView) findViewById(R.id.p2img);
+            Bitmap src2 = BitmapFactory.decodeResource(getResources(), R.drawable.img_p2port);
+            RoundedBitmapDrawable dr2 = RoundedBitmapDrawableFactory.create(getResources(), src2);
+            dr2.setCornerRadius(Math.max(src2.getWidth(), src2.getHeight()) / 10f);
+            imgP2.setImageDrawable(dr2);
 
-        objAniIntro(intro, 0);
+            objAniIntro(intro, 0);
+        }
 
 /*        introani = AnimationUtils.loadAnimation(this, R.anim.introalpha);  // old and useless
         final long currAnimTime = AnimationUtils.currentAnimationTimeMillis();
@@ -391,12 +394,11 @@ public class MainActivity extends AppCompatActivity {
         outState.putLong("delayms2", timer2);
 
         Log.i("onSave", "delay ms " + timer);
-        Log.i("onSave", "delay ms " + timer2);
+        Log.i("onSave", "delay ms2 " + timer2);
     }
 
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
         p1health = savedInstanceState.getInt("p1hp");
         p2health = savedInstanceState.getInt("p2hp");
         displayp1hp(p1health);
@@ -411,7 +413,7 @@ public class MainActivity extends AppCompatActivity {
         timer2 = savedInstanceState.getLong("delayms2");
 
         Log.i("onRestore", "delay ms " + timer);
-        Log.i("onRestore", "delay ms " + timer2);
+        Log.i("onRestore", "delay ms2 " + timer2);
         delayTop = new CountDownTimer(timer, 10) {
             @Override
             public void onTick(long millisUntilFinished) {
@@ -427,6 +429,7 @@ public class MainActivity extends AppCompatActivity {
         delayTop.start();
 
         intro.setText(savedInstanceState.getCharSequence("introtext"));
+        super.onRestoreInstanceState(savedInstanceState);
     }
 
     /*   public static Animator alphaAnimator(int start, int end, View view, int duration) {
