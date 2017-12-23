@@ -35,6 +35,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.Random;
+import java.util.Timer;
 
 public class MainActivity extends AppCompatActivity {
     int p1health = 20;
@@ -46,16 +47,15 @@ public class MainActivity extends AppCompatActivity {
     TextView p2txt;
     TextView resettxt;
     CountDownTimer delayTop;
+    CountDownTimer delayReseted;
     RelativeLayout resetLO;
     long timer = 2000;
-    long timer2 = 2000;
+    long timerRemain;
     public static final long SHOW_DURATION = 2000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-            Log.i("valueLong", "onCreate: timer" + timer);
-            Log.i("valueInt", "onCreate: hp" + p1health);
             requestWindowFeature(Window.FEATURE_NO_TITLE);
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                     WindowManager.LayoutParams.FLAG_FULLSCREEN);
@@ -89,12 +89,35 @@ public class MainActivity extends AppCompatActivity {
 
             intro.setText("Let the battle begin! \n Player " + startRand + " starts this round!");
 
+   /*     if(savedInstanceState ==null) {
+            timer = 2000;
+        }
+
+        timer = savedInstanceState.getLong("delayms");  //FATAL EXCEPTION: main
+        delayTop = new CountDownTimer(timer, 100) {
+            @Override
+            public void onTick(long ms) {
+                timer = ms;
+//                Log.i("ss","onTick: ms " + timer);
+            }
+
+            @Override
+            public void onFinish() {
+                intro.setText("\n");
+                timer = 0;
+                cancel();
+            }
+        };
+
+        delayTop.start();*/
+
         if(savedInstanceState ==null) {
             delayTop = new CountDownTimer(timer, 100) {
                 @Override
                 public void onTick(long ms) {
                     timer = ms;
-//                Log.i("ss","onTick: ms " + timer);
+                    timerRemain = SHOW_DURATION - timer;
+                Log.i("ss","onTick: ms " + timerRemain);
                 }
 
                 @Override
@@ -106,6 +129,7 @@ public class MainActivity extends AppCompatActivity {
             };
 
             delayTop.start();
+            objAniIntro(intro, timerRemain);
         }
 
             ImageView imgP1 = (ImageView) findViewById(R.id.p1img);
@@ -121,7 +145,6 @@ public class MainActivity extends AppCompatActivity {
             dr2.setCornerRadius(Math.max(src2.getWidth(), src2.getHeight()) / 10f);
             imgP2.setImageDrawable(dr2);
 
-            objAniIntro(intro, 0);
 
 
 /*        introani = AnimationUtils.loadAnimation(this, R.anim.introalpha);  // old and useless
@@ -364,11 +387,12 @@ public class MainActivity extends AppCompatActivity {
 
         objAniIntro(intro, 0);
 
-        CountDownTimer delay1 = new CountDownTimer(SHOW_DURATION, 1) {
+        delayReseted = new CountDownTimer(SHOW_DURATION, 100) {
 
             @Override
             public void onTick(long ms) {
                 timer = ms;
+                timerRemain = SHOW_DURATION - timer;
             }
 
             @Override
@@ -377,11 +401,12 @@ public class MainActivity extends AppCompatActivity {
                 cancel();
             }
         };
-        delay1.start();
+        delayReseted.start();
     }
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
+        delayTop.cancel();
         super.onSaveInstanceState(outState);
         outState.putInt("p1hp", p1health);
         outState.putInt("p2hp", p2health);
@@ -393,11 +418,9 @@ public class MainActivity extends AppCompatActivity {
         outState.putCharSequence("resettext", resettxt.getText());
         outState.putCharSequence("introtext", intro.getText());
         outState.putLong("delayms", timer);
-        outState.putLong("delayms2", timer2);
+        outState.putLong("delayRemain", timerRemain);
 
-        Log.i("valueLong", "onSave: delay ms " + timer);
-        Log.i("valueLong", "onSave: delay ms2 " + timer2);
-        Log.i("valueInt", "onSave: hp " + p1health);
+    //    Log.i("valueLong", "onSave: delay ms " + timerRemain);
     }
 
     @Override
@@ -413,17 +436,19 @@ public class MainActivity extends AppCompatActivity {
         p2btn.setEnabled(savedInstanceState.getBoolean("btn2state"));
         resettxt.setText(savedInstanceState.getCharSequence("resettext"));
         timer = savedInstanceState.getLong("delayms");
-        timer2 = savedInstanceState.getLong("delayms2");
+        timerRemain = savedInstanceState.getLong("delayRemain");
 
-        Log.i("valueLong", "onRestore: delay ms " + timer);
-        Log.i("valueLong", "onRestore: delay ms2 " + timer2);
-        Log.i("valueInt", "onRestore: hp " + p1health);
+        objAniIntro(intro, timerRemain);
 
-        /*
-        delayTop = new CountDownTimer(timer, 10) {
+        Log.i("valueLong", "onRestore: delay ms " + timerRemain);
+
+
+        delayTop = new CountDownTimer(timer, 100) {
             @Override
             public void onTick(long millisUntilFinished) {
                 timer = millisUntilFinished;
+                timerRemain = SHOW_DURATION - timer;
+                Log.i("ss","onTick: ms " + timerRemain);
             }
 
             @Override
@@ -432,7 +457,8 @@ public class MainActivity extends AppCompatActivity {
                 cancel();
             }
         };
-        delayTop.start();*/
+        delayTop.start();
+
 
         intro.setText(savedInstanceState.getCharSequence("introtext"));
         super.onRestoreInstanceState(savedInstanceState);
