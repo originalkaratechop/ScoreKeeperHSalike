@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
     CountDownTimer delayTop;
     CountDownTimer delayReseted;
     RelativeLayout resetLO;
-    long timer = 2000;
+    long timer;
     long timerRemain;
     public static final long SHOW_DURATION = 2000;
 
@@ -89,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
 
             intro.setText("Let the battle begin! \n Player " + startRand + " starts this round!");
 
-   /*     if(savedInstanceState ==null) {
+  /*      if(savedInstanceState ==null) {
             timer = 2000;
         }
 
@@ -110,6 +110,12 @@ public class MainActivity extends AppCompatActivity {
         };
 
         delayTop.start();*/
+        if(savedInstanceState ==null) {
+            timer = 2000;}
+            else {
+            timer = savedInstanceState.getLong("delayms");  //FATAL EXCEPTION: main
+        }
+
 
         if(savedInstanceState ==null) {
             delayTop = new CountDownTimer(timer, 100) {
