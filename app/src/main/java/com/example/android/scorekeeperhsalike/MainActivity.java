@@ -54,7 +54,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if(savedInstanceState ==null) {
             Log.i("ss", "onCreate: ms " + timer);
             requestWindowFeature(Window.FEATURE_NO_TITLE);
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
@@ -89,6 +88,7 @@ public class MainActivity extends AppCompatActivity {
 
             intro.setText("Let the battle begin! \n Player " + startRand + " starts this round!");
 
+        if(savedInstanceState ==null) {
             delayTop = new CountDownTimer(timer, 100) {
                 @Override
                 public void onTick(long ms) {
@@ -105,6 +105,7 @@ public class MainActivity extends AppCompatActivity {
             };
 
             delayTop.start();
+        }
 
             ImageView imgP1 = (ImageView) findViewById(R.id.p1img);
             Bitmap src1 = BitmapFactory.decodeResource(getResources(), R.drawable.img_p1port);
@@ -120,7 +121,7 @@ public class MainActivity extends AppCompatActivity {
             imgP2.setImageDrawable(dr2);
 
             objAniIntro(intro, 0);
-        }
+
 
 /*        introani = AnimationUtils.loadAnimation(this, R.anim.introalpha);  // old and useless
         final long currAnimTime = AnimationUtils.currentAnimationTimeMillis();
@@ -414,6 +415,8 @@ public class MainActivity extends AppCompatActivity {
 
         Log.i("onRestore", "delay ms " + timer);
         Log.i("onRestore", "delay ms2 " + timer2);
+
+        /*
         delayTop = new CountDownTimer(timer, 10) {
             @Override
             public void onTick(long millisUntilFinished) {
@@ -426,7 +429,7 @@ public class MainActivity extends AppCompatActivity {
                 cancel();
             }
         };
-        delayTop.start();
+        delayTop.start();*/
 
         intro.setText(savedInstanceState.getCharSequence("introtext"));
         super.onRestoreInstanceState(savedInstanceState);
