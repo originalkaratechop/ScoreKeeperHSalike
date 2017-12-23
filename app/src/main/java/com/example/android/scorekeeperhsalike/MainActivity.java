@@ -54,7 +54,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-            Log.i("ss", "onCreate: ms " + timer);
+            Log.i("valueLong", "onCreate: timer" + timer);
+            Log.i("valueInt", "onCreate: hp" + p1health);
             requestWindowFeature(Window.FEATURE_NO_TITLE);
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                     WindowManager.LayoutParams.FLAG_FULLSCREEN);
@@ -394,8 +395,9 @@ public class MainActivity extends AppCompatActivity {
         outState.putLong("delayms", timer);
         outState.putLong("delayms2", timer2);
 
-        Log.i("onSave", "delay ms " + timer);
-        Log.i("onSave", "delay ms2 " + timer2);
+        Log.i("valueLong", "onSave: delay ms " + timer);
+        Log.i("valueLong", "onSave: delay ms2 " + timer2);
+        Log.i("valueInt", "onSave: hp " + p1health);
     }
 
     @Override
@@ -413,8 +415,9 @@ public class MainActivity extends AppCompatActivity {
         timer = savedInstanceState.getLong("delayms");
         timer2 = savedInstanceState.getLong("delayms2");
 
-        Log.i("onRestore", "delay ms " + timer);
-        Log.i("onRestore", "delay ms2 " + timer2);
+        Log.i("valueLong", "onRestore: delay ms " + timer);
+        Log.i("valueLong", "onRestore: delay ms2 " + timer2);
+        Log.i("valueInt", "onRestore: hp " + p1health);
 
         /*
         delayTop = new CountDownTimer(timer, 10) {
